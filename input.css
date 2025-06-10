@@ -1,0 +1,332 @@
+
+
+.editor-textarea {
+            font-family: 'Courier New', monospace;
+            resize: none;
+        }
+        .preview-content h1 { font-size: 2rem; font-weight: bold; margin: 1rem 0; }
+        .preview-content h2 { font-size: 1.5rem; font-weight: bold; margin: 0.75rem 0; }
+        .preview-content h3 { font-size: 1.25rem; font-weight: bold; margin: 0.5rem 0; }
+        .preview-content p { margin: 0.5rem 0; }
+        .preview-content ul, .preview-content ol { margin: 0.5rem 0; padding-left: 1.5rem; }
+        .preview-content li { margin: 0.25rem 0; }
+        .preview-content blockquote { border-left: 4px solid #d1d5db; padding-left: 1rem; margin: 1rem 0; color: #6b7280; }
+        .preview-content code { background-color: #f3f4f6; padding: 0.125rem 0.25rem; border-radius: 0.25rem; font-family: monospace; }
+        .preview-content pre { background-color: #f3f4f6; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; margin: 1rem 0; }
+        .preview-content pre code { background: none; padding: 0; }
+        .preview-content table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+        .preview-content th, .preview-content td { border: 1px solid #d1d5db; padding: 0.5rem; text-align: left; }
+        .preview-content th { background-color: #f9fafb; font-weight: bold; }
+        .preview-content hr { border: none; border-top: 1px solid #d1d5db; margin: 1rem 0; }
+        .preview-content a { color: #3b82f6; text-decoration: underline; }
+        .preview-content img { max-width: 100%; height: auto; }
+        .preview-content strong { font-weight: bold; }
+        .preview-content em { font-style: italic; }
+        
+        .drag-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(59, 130, 246, 0.1);
+            border: 3px dashed #3b82f6;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 40;
+            pointer-events: none;
+        }
+        
+        .drag-overlay.hidden {
+            display: none;
+        }
+
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Vista prèvia - tema fosc */
+.dark .preview-content h1,
+.dark .preview-content h2,
+.dark .preview-content h3 { 
+    color: #f9fafb; 
+}
+
+.dark .preview-content p { 
+    color: #e5e7eb; 
+}
+
+.dark .preview-content blockquote { 
+    border-left-color: #6b7280; 
+    color: #9ca3af; 
+}
+
+.dark .preview-content code { 
+    background-color: #374151; 
+    color: #f9fafb; 
+}
+
+.dark .preview-content pre { 
+    background-color: #1f2937; 
+}
+
+.dark .preview-content pre code { 
+    background: none; 
+    color: #e5e7eb; 
+}
+
+.dark .preview-content table th,
+.dark .preview-content table td { 
+    border-color: #4b5563; 
+}
+
+.dark .preview-content table th { 
+    background-color: #374151; 
+    color: #f9fafb; 
+}
+
+.dark .preview-content hr { 
+    border-color: #4b5563; 
+}
+
+.dark .preview-content a { 
+    color: #60a5fa; 
+}
+
+.dark .preview-content strong { 
+    color: #f9fafb; 
+}
+
+.dark .preview-content em { 
+    color: #d1d5db; 
+}
+
+
+/* Tooltips amb posicionament intel·ligent */
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #1f2937;
+    color: white;
+    padding: 6px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    pointer-events: none;
+    z-index: 1000;
+    margin-bottom: 5px;
+    max-width: 200px;
+}
+
+.tooltip::after {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid transparent;
+    border-top-color: #1f2937;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    pointer-events: none;
+    z-index: 1000;
+    margin-bottom: 1px;
+}
+
+.tooltip:hover::before,
+.tooltip:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Tooltips alineats a l'esquerra (per botons de la dreta) */
+.tooltip-left::before {
+    left: auto;
+    right: 0;
+    transform: none;
+}
+
+.tooltip-left::after {
+    left: auto;
+    right: 12px;
+    transform: none;
+}
+
+/* Tooltips alineats a la dreta (per botons de l'esquerra) */
+.tooltip-right::before {
+    left: 0;
+    right: auto;
+    transform: none;
+}
+
+.tooltip-right::after {
+    left: 12px;
+    right: auto;
+    transform: none;
+}
+
+/* Tooltips a sota (per botons a la part superior) */
+.tooltip-bottom::before {
+    bottom: auto;
+    top: 100%;
+    margin-bottom: 0;
+    margin-top: 5px;
+}
+
+.tooltip-bottom::after {
+    bottom: auto;
+    top: 100%;
+    border-top-color: transparent;
+    border-bottom-color: #1f2937;
+    margin-bottom: 0;
+    margin-top: 1px;
+}
+
+/* Tooltips en tema fosc */
+.dark .tooltip::before,
+.dark .tooltip-bottom::before {
+    background-color: #374151;
+    color: #f9fafb;
+}
+
+.dark .tooltip::after {
+    border-top-color: #374151;
+}
+
+.dark .tooltip-bottom::after {
+    border-bottom-color: #374151;
+    border-top-color: transparent;
+}
+
+
+
+/* Estils per al menú desplegable */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    border-radius: 6px;
+    z-index: 1000;
+    border: 1px solid #e5e7eb;
+    overflow: hidden;
+}
+
+.dropdown-content.show {
+    display: block;
+}
+
+.dropdown-content button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    border-radius: 0;
+}
+
+.dropdown-content button:first-child {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+.dropdown-content button:last-child {
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+/* Tema fosc per al dropdown */
+.dark .dropdown-content {
+    background-color: #1f2937;
+    border-color: #374151;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4);
+}
+
+/* Animació del dropdown */
+.dropdown-content {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.dropdown-content.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Fletxa del botó */
+.dropdown svg {
+    transition: transform 0.2s;
+}
+
+.dropdown.open svg {
+    transform: rotate(180deg);
+}
+
+/* Scroll personalitzat per al dropdown d'emojis */
+#emojiDropdown {
+    max-height: 320px; /* Més alt que max-h-64 (256px) */
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 #f1f5f9;
+}
+
+/* Scroll webkit (Chrome, Safari) */
+#emojiDropdown::-webkit-scrollbar {
+    width: 6px;
+}
+
+#emojiDropdown::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 3px;
+}
+
+#emojiDropdown::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+}
+
+#emojiDropdown::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Tema fosc per al scroll */
+.dark #emojiDropdown {
+    scrollbar-color: #4b5563 #374151;
+}
+
+.dark #emojiDropdown::-webkit-scrollbar-track {
+    background: #374151;
+}
+
+.dark #emojiDropdown::-webkit-scrollbar-thumb {
+    background: #4b5563;
+}
+
+.dark #emojiDropdown::-webkit-scrollbar-thumb:hover {
+    background: #6b7280;
+}
+
+/* Assegurar que el contingut del dropdown tingui padding adequat */
+#emojiDropdown .p-2 {
+    padding-bottom: 8px; /* Espai al final per veure l'última fila */
+}
