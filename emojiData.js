@@ -267,54 +267,19 @@ function generateEmojiHtml(emojiGroups) {
 }
 
 
-const emojiHtml = `
-                        <div class="p-2">
-                            <div class="text-xs font-semibold text-gray-600 dark:text-gray-400 mb-2">Expressions</div>
-                            <div class="grid grid-cols-8 gap-1 mb-3">
-                                <button onclick="insertText('😀'); closeDropdown('emojiDropdown')" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-lg" title=":grinning:">😀</button>
-                                <button onclick="insertText('😄'); closeDropdown('emojiDropdown')" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-lg" title=":smile:">😄</button>
-                                <button onclick="insertText('😂'); closeDropdown('emojiDropdown')" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-lg" title=":joy:">😂</button>
-                                <button onclick="insertText('😊'); closeDropdown('emojiDropdown')" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-lg" title=":blush:">😊</button>
-                                <button onclick="insertText('😍'); closeDropdown('emojiDropdown')" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-lg" title=":heart_eyes:">😍</button>
-                                <button onclick="insertText('😘'); closeDropdown('emojiDropdown')" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-lg" title=":kissing_heart:">😘</button>
-                                <button onclick="insertText('😉'); closeDropdown('emojiDropdown')" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-lg" title=":wink:">😉</button>
-                                <button onclick="insertText('😞'); closeDropdown('emojiDropdown')" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-lg" title=":disappointed:">😞</button>
-                            </div>
-                            
-                            <div class="text-xs font-semibold text-gray-600 dark:text-gray-400 mb-2">Gestos</div>
-                            <div class="grid grid-cols-8 gap-1 mb-3">
-                                <button onclick="insertText('👍'); closeDropdown('emojiDropdown')" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-lg" title=":thumbsup:">👍</button>
-                                <button onclick="insertText('👎'); closeDropdown('emojiDropdown')" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-lg" title=":thumbsdown:">👎</button>
-                                <button onclick="insertText('👌'); closeDropdown('emojiDropdown')" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-lg" title=":ok_hand:">👌</button>
-                                <button onclick="insertText('👏'); closeDropdown('emojiDropdown')" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-lg" title=":clap:">👏</button>
-                                <button onclick="insertText('🙏'); closeDropdown('emojiDropdown')" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-lg" title=":pray:">🙏</button>
-                                <button onclick="insertText('💪'); closeDropdown('emojiDropdown')" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-lg" title=":muscle:">💪</button>
-                                <button onclick="insertText('👋'); closeDropdown('emojiDropdown')" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-lg" title=":wave:">👋</button>
-                                <button onclick="insertText('✋'); closeDropdown('emojiDropdown')" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-lg" title=":raised_hand:">✋</button>
-                            </div>
-                            
-                            <div class="text-xs font-semibold text-gray-600 dark:text-gray-400 mb-2">Símbols</div>
-                            <div class="grid grid-cols-8 gap-1 mb-3">
-                                <button onclick="insertText('⚠️'); closeDropdown('emojiDropdown')" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-lg" title=":warning:">⚠️</button>
-                                <button onclick="insertText('❗'); closeDropdown('emojiDropdown')" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-lg" title=":exclamation:">❗</button>
-                                <button onclick="insertText('❓'); closeDropdown('emojiDropdown')" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-lg" title=":question:">❓</button>
-                                <button onclick="insertText('✅'); closeDropdown('emojiDropdown')" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-lg" title=":white_check_mark:">✅</button>
-                                <button onclick="insertText('❌'); closeDropdown('emojiDropdown')" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-lg" title=":x:">❌</button>
-                                <button onclick="insertText('💡'); closeDropdown('emojiDropdown')" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-lg" title=":bulb:">💡</button>
-                                <button onclick="insertText('🔥'); closeDropdown('emojiDropdown')" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-lg" title=":fire:">🔥</button>
-                                <button onclick="insertText('🚀'); closeDropdown('emojiDropdown')" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-lg" title=":rocket:">🚀</button>
-                            </div>
-                            
-                            <div class="text-xs font-semibold text-gray-600 dark:text-gray-400 mb-2">Programació</div>
-                            <div class="grid grid-cols-8 gap-1">
-                                <button onclick="insertText('🐛'); closeDropdown('emojiDropdown')" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-lg" title=":bug:">🐛</button>
-                                <button onclick="insertText('🚧'); closeDropdown('emojiDropdown')" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-lg" title=":construction:">🚧</button>
-                                <button onclick="insertText('📝'); closeDropdown('emojiDropdown')" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-lg" title=":memo:">📝</button>
-                                <button onclick="insertText('📁'); closeDropdown('emojiDropdown')" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-lg" title=":file_folder:">📁</button>
-                                <button onclick="insertText('💻'); closeDropdown('emojiDropdown')" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-lg" title=":computer:">💻</button>
-                                <button onclick="insertText('🔍'); closeDropdown('emojiDropdown')" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-lg" title=":mag:">🔍</button>
-                                <button onclick="insertText('⚙️'); closeDropdown('emojiDropdown')" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-lg" title=":gear:">⚙️</button>
-                                <button onclick="insertText('🔧'); closeDropdown('emojiDropdown')" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-lg" title=":wrench:">🔧</button>
-                            </div>
-                        </div>
-`
+// // Exemple d'ús per al dropdown amb shortcodes
+// function showEmojiShortcodes() {
+//     // Aquest és un exemple de com podries modificar el dropdown
+//     // per inserir shortcodes en lloc d'emojis directes
+//     const emojiHTML = `
+//         ${createEmojiShortcodeButton('⚠️', ':warning:', 'Advertència')}
+//         ${createEmojiShortcodeButton('💡', ':bulb:', 'Bombeta')}
+//         ${createEmojiShortcodeButton('🔥', ':fire:', 'Foc')}
+//         ${createEmojiShortcodeButton('🚀', ':rocket:', 'Coet')}
+//         ${createEmojiShortcodeButton('🐛', ':bug:', 'Error')}
+//         ${createEmojiShortcodeButton('✅', ':white_check_mark:', 'Marcat')}
+//         ${createEmojiShortcodeButton('❌', ':x:', 'X')}
+//         ${createEmojiShortcodeButton('❗', ':exclamation:', 'Exclamació')}
+//     `;
+//     return emojiHTML;
+// }
