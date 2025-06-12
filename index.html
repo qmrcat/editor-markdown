@@ -188,12 +188,17 @@
                     <span class="font-bold text-lg dark:text-gray-200">☐ ≡</span>
                 </button>
                 <div class="border-l mx-2"></div>
-                <button onclick="insertText('| Columna 1 | Columna 2 |\n|----------|----------|\n| Cel·la 1 | Cel·la 2 |\n')" 
+                <!-- <button onclick="insertText('| Columna 1 | Columna 2 |\n|----------|----------|\n| Cel·la 1 | Cel·la 2 |\n')" 
                         class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded" 
                         title="Taula"
                         data-tooltip="Taula">
                     <span class="font-bold text-lg dark:text-gray-200">⊞</span>
-                </button>
+                </button> -->
+<button onclick="insertTableVisual()" 
+        class="toolbar-btn p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded dark:text-gray-200" 
+        data-tooltip="Crear taula visual">
+    ⊞
+</button>
                 <button onclick="wrapText('[', '](url)')" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded" 
                         title="Enllaç"
                         >
@@ -285,6 +290,7 @@
     <script src="./emojiData.js"></script>
     <script src="./tooltipManager.js"></script>
     <script src="./dropdown.js"></script>
+    <script src="./tableGrid.js"></script>
     
     <script defer src="./script.js"></script>
     <script defer src="./loaded.js"></script>

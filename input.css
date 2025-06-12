@@ -330,3 +330,223 @@
 #emojiDropdown .p-2 {
     padding-bottom: 8px; /* Espai al final per veure l'última fila */
 }
+
+
+/**********************/
+/* Editar grid taules */
+/*                    */
+
+/* Estils per al creador visual de taules */
+#tableGrid {
+    user-select: none;
+    border-radius: 4px;
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    width: fit-content;
+    overflow: hidden;
+    border: 1px solid #d1d5db;
+}
+
+.dark #tableGrid {
+    background: #374151;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    border-color: #6b7280;
+}
+
+#tableGrid div[data-row] {
+    transition: background-color 0.15s ease;
+    box-sizing: border-box;
+}
+
+/* Millors colors per la selecció */
+.bg-blue-300 {
+    background-color: #93c5fd !important; /* Hover més clar */
+}
+
+.dark .bg-blue-400 {
+    background-color: #60a5fa !important; /* Hover fosc */
+}
+
+.bg-blue-500 {
+    background-color: #3b82f6 !important; /* Selecció confirmada */
+}
+
+.dark .bg-blue-600 {
+    background-color: #2563eb !important; /* Selecció confirmada fosc */
+}
+
+.dark #tableGrid div[data-row] {
+    background-color: #4b5563;
+    border-color: #6b7280;
+}
+
+#tableGrid div[data-row]:hover {
+    background-color: #dbeafe !important;
+}
+
+.dark #tableGrid div[data-row]:hover {
+    background-color: #3b82f6 !important;
+}
+
+/* Cel·les seleccionades */
+#tableGrid div.selected {
+    background-color: #3b82f6 !important;
+}
+
+.dark #tableGrid div.selected {
+    background-color: #2563eb !important;
+}
+
+/* Grid compacte sense espais */
+#tableGrid {
+    display: inline-block;
+    width: fit-content;
+    font-size: 0; /* Elimina espais entre elements inline */
+}
+
+#tableGrid div[data-row] {
+    font-size: 14px; /* Restaura mida de font si cal */
+    box-sizing: border-box;
+}
+
+/* Estils per als controls */
+#tableSizeDisplay {
+    font-family: 'Courier New', monospace;
+    font-weight: 500;
+    min-height: 20px;
+}
+
+/* Checkbox personalitzat per tema fosc */
+.dark input[type="checkbox"] {
+    background-color: #374151;
+    border-color: #6b7280;
+}
+
+.dark input[type="checkbox"]:checked {
+    background-color: #3b82f6;
+    border-color: #3b82f6;
+}
+
+/* Select personalitzat per tema fosc */
+.dark select {
+    background-color: #374151;
+    border-color: #6b7280;
+    color: #f9fafb;
+}
+
+.dark select:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 1px #3b82f6;
+}
+
+/* Animació suau per al grid */
+#tableGrid {
+    transition: all 0.2s ease;
+}
+
+/* Millor visualització del hover */
+#tableGrid div[data-row] {
+    position: relative;
+}
+
+#tableGrid div[data-row]:hover::after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    border: 1px solid #3b82f6;
+    pointer-events: none;
+}
+
+
+
+/* Estils per als toasts */
+#toastContainer {
+    pointer-events: none;
+}
+
+#toastContainer > div {
+    pointer-events: auto;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+/* Animacions per als toasts */
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutLeft {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+/* Efectes de hover per als toasts */
+#toastContainer .transform:hover {
+    transform: translateX(0) scale(1.02);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Barra de progrés per auto-tancament (opcional) */
+.toast-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: currentColor;
+    opacity: 0.3;
+    animation: progressBar linear;
+}
+
+@keyframes progressBar {
+    from { width: 100%; }
+    to { width: 0%; }
+}
+
+/* Responsive per mòbils */
+@media (max-width: 640px) {
+    #toastContainer {
+        left: 1rem;
+        right: 1rem;
+        max-width: none;
+    }
+    
+    #toastContainer > div {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+/* Millor aparença per tema fosc */
+.dark #toastContainer .bg-blue-100 {
+    background-color: rgba(30, 64, 175, 0.9) !important;
+}
+
+.dark #toastContainer .bg-green-100 {
+    background-color: rgba(21, 128, 61, 0.9) !important;
+}
+
+/* Estils per al botó de tancar */
+#toastContainer button {
+    transition: all 0.2s ease;
+    border-radius: 4px;
+}
+
+#toastContainer button:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}

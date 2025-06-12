@@ -1,4 +1,50 @@
-function showAlert(message, type = 'info') {
+const durationToast = 4000; // Durada per defecte dels toasts
+
+
+// function showAlertVell(message, type = 'info') {
+//     return new Promise((resolve) => {
+//         const iconMap = {
+//             'info': '💡',
+//             'success': '✅', 
+//             'warning': '⚠️',
+//             'error': '❌'
+//         };
+        
+//         const colorMap = {
+//             'info': 'bg-blue-100 text-blue-800 border-blue-300 dark:bg-blue-900 dark:text-blue-200 dark:border-blue-700',
+//             'success': 'bg-green-100 text-green-800 border-green-300 dark:bg-green-900 dark:text-green-200 dark:border-green-700',
+//             'warning': 'bg-yellow-100 text-yellow-800 border-yellow-300 dark:bg-yellow-900 dark:text-yellow-200 dark:border-yellow-700',
+//             'error': 'bg-red-100 text-red-800 border-red-300 dark:bg-red-900 dark:text-red-200 dark:border-red-700'
+//         };
+
+//         const content = `
+//             <div class="p-6 bg-white dark:bg-gray-800">
+//                 <div class="flex items-center mb-4">
+//                     <span class="text-2xl mr-3">${iconMap[type]}</span>
+//                     <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Informació</h3>
+//                 </div>
+//                 <div class="mb-6 p-3 rounded border ${colorMap[type]} dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100">
+//                     ${message}
+//                 </div>
+//                 <div class="flex justify-end">
+//                     <button onclick="resolveModal(true)" 
+//                             class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">
+//                         D'acord
+//                     </button>
+//                 </div>
+//             </div>
+//         `;
+        
+//         currentModalResolve = resolve;
+//         showModal(content);
+//     });
+// }
+
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+// Sistema d'alertes millorat
+function showAlert(message, type = 'info', autoClose = true, duration = durationToast) {
     return new Promise((resolve) => {
         const iconMap = {
             'info': '💡',
@@ -14,28 +60,143 @@ function showAlert(message, type = 'info') {
             'error': 'bg-red-100 text-red-800 border-red-300 dark:bg-red-900 dark:text-red-200 dark:border-red-700'
         };
 
-        const content = `
-            <div class="p-6 bg-white dark:bg-gray-800">
-                <div class="flex items-center mb-4">
-                    <span class="text-2xl mr-3">${iconMap[type]}</span>
-                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Informació</h3>
-                </div>
-                <div class="mb-6 p-3 rounded border ${colorMap[type]} dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100">
-                    ${message}
-                </div>
-                <div class="flex justify-end">
-                    <button onclick="resolveModal(true)" 
-                            class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">
-                        D'acord
-                    </button>
-                </div>
-            </div>
-        `;
+        // Determinar si usar toast o modal
+        const useToast = (type === 'info' || type === 'success');
         
-        currentModalResolve = resolve;
-        showModal(content);
+        if (useToast) {
+            showToastAlert(message, type, iconMap[type], colorMap[type], autoClose, duration, resolve);
+        } else {
+            showModalAlert(message, type, iconMap[type], colorMap[type], resolve);
+        }
     });
 }
+
+// Alertes tipus toast (dalt esquerra)
+function showToastAlert(message, type, icon, colorClasses, autoClose, duration, resolve) {
+    // Crear contenidor de toasts si no existeix
+    let toastContainer = document.getElementById('toastContainer');
+    if (!toastContainer) {
+        toastContainer = document.createElement('div');
+        toastContainer.id = 'toastContainer';
+        toastContainer.className = 'fixed top-4 left-4 z-50 space-y-2 max-w-sm';
+        document.body.appendChild(toastContainer);
+    }
+
+    // Crear toast
+    const toast = document.createElement('div');
+    toast.className = `transform transition-all duration-300 translate-x-[-100%] opacity-0 p-4 rounded-lg border shadow-lg ${colorClasses}`;
+    
+    toast.innerHTML = `
+        <div class="flex items-start">
+            <span class="text-xl mr-3 flex-shrink-0">${icon}</span>
+            <div class="flex-1">
+                <div class="font-medium">${type === 'info' ? 'Informació' : 'Èxit'}</div>
+                <div class="text-sm mt-1">${message}</div>
+            </div>
+            <button onclick="removeToast(this.parentElement.parentElement)" 
+                    class="ml-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 flex-shrink-0">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+            </button>
+        </div>
+    `;
+
+    toastContainer.appendChild(toast);
+
+    // Animació d'entrada
+    setTimeout(() => {
+        toast.classList.remove('translate-x-[-100%]', 'opacity-0');
+        toast.classList.add('translate-x-0', 'opacity-100');
+    }, 10);
+
+    // Auto-tancament
+    if (autoClose && (type === 'info' || type === 'success')) {
+        setTimeout(() => {
+            removeToast(toast);
+        }, duration);
+    }
+
+    // Resolve promise immediatament per toasts
+    resolve(true);
+}
+
+// Alertes tipus modal (centre)
+function showModalAlert(message, type, icon, colorClasses, resolve) {
+    const content = `
+        <div class="p-6">
+            <div class="flex items-center mb-4">
+                <span class="text-2xl mr-3">${icon}</span>
+                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                    ${type === 'warning' ? 'Advertència' : 'Error'}
+                </h3>
+            </div>
+            <div class="mb-6 p-3 rounded border ${colorClasses}">
+                ${message}
+            </div>
+            <div class="flex justify-end">
+                <button onclick="resolveModalAlert(true)" 
+                        class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">
+                    D'acord
+                </button>
+            </div>
+        </div>
+    `;
+    
+    currentModalAlertResolve = resolve;
+    showModal(content);
+}
+
+// Variables globals per gestionar alerts
+let currentModalAlertResolve = null;
+
+// Funció per resoldre modal alerts
+function resolveModalAlert(value) {
+    if (currentModalAlertResolve) {
+        const resolve = currentModalAlertResolve;
+        currentModalAlertResolve = null;
+        hideModal();
+        resolve(value);
+    }
+}
+
+// Funció per eliminar toasts
+function removeToast(toast) {
+    if (toast && toast.parentElement) {
+        toast.classList.add('translate-x-[-100%]', 'opacity-0');
+        setTimeout(() => {
+            if (toast.parentElement) {
+                toast.parentElement.removeChild(toast);
+                
+                // Eliminar contenidor si està buit
+                const container = document.getElementById('toastContainer');
+                if (container && container.children.length === 0) {
+                    container.remove();
+                }
+            }
+        }, 300);
+    }
+}
+
+// Funcions de conveniència
+function showSuccessToast(message, duration = 3000) {
+    return showAlert(message, 'success', true, duration);
+}
+
+function showInfoToast(message, duration = 4000) {
+    return showAlert(message, 'info', true, duration);
+}
+
+function showWarningModal(message) {
+    return showAlert(message, 'warning', false);
+}
+
+function showErrorModal(message) {
+    return showAlert(message, 'error', false);
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////
 
 function showConfirm(message, confirmText = 'Acceptar', cancelText = 'Cancel·lar') {
     return new Promise((resolve) => {
