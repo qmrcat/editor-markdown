@@ -3,7 +3,7 @@ function quantAleditor() {
     modal.className = 'fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 z-50';
     
     const content = document.createElement('div');
-    content.className = 'bg-white dark:bg-gray-800 p-6 rounded shadow-lg max-w-md w-full';
+    content.className = 'bg-white dark:bg-gray-700 p-6 rounded shadow-lg max-w-md w-full';
     
     const title = document.createElement('h2');
     title.className = 'text-xl font-bold mb-4 text-gray-800 dark:text-gray-100';
@@ -12,9 +12,9 @@ function quantAleditor() {
     const description = document.createElement('p');
     description.className = 'text-gray-700 dark:text-gray-300 mb-4';
     description.innerHTML = `
-        <strong>Versió:</strong> 0.5.1<br>
-        <strong>Desenvolupador:</strong> Joan Miralles<br>
-        <strong>Data de l'última actualització:</strong> 2023-10-01<br>
+        <strong>Versió:</strong>0.5.1<br>
+        <strong>Desenvolupador:</strong> QMR<br>
+        <strong>Data de l'última actualització:</strong> 2025-07-11<br>
         <strong>Funcionalitats:</strong><br>
         - Edició de Markdown en temps real<br>
         - Previsualització en viu<br>
