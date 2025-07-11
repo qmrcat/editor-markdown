@@ -48,7 +48,8 @@ function updateThemeButton() {
     const themeButton = document.getElementById('themeToggle');
     if (themeButton) {
         const icon = isDarkMode ? '☀️' : '🌙';
-        const text = isDarkMode ? 'Tema clar' : 'Tema fosc';
+        const text = ''
+        // const text = isDarkMode ? 'Tema clar' : 'Tema fosc';
         themeButton.innerHTML = `${icon} ${text}`;
     }
 }

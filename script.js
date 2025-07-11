@@ -25,7 +25,8 @@
             if (previewVisible) {
                 // Mostrar vista prèvia
                 previewContainer.classList.remove('hidden');
-                toggleText.textContent = '👁️ Amagar vista';
+                // toggleText.textContent = '🙈 Amagar vista';
+                toggleText.textContent = '🙈';
                 
                 // Responsive: En mòbil (lg:) dividir verticalment, en desktop horitzontalment
                 editorContainer.className = 'w-full lg:w-1/2 bg-white dark:bg-gray-800 border-r dark:border-gray-700 transition-all duration-300 flex flex-col min-h-0';
@@ -35,7 +36,8 @@
             } else {
                 // Amagar vista prèvia
                 previewContainer.classList.add('hidden');
-                toggleText.textContent = '👁️ Mostrar vista';
+                // toggleText.textContent = '👁️ Mostrar vista';
+                toggleText.textContent = '👁️';
                 
                 // Editor a pantalla completa
                 editorContainer.className = 'w-full bg-white dark:bg-gray-800 transition-all duration-300 flex flex-col min-h-0';
