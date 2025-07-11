@@ -1,17 +1,45 @@
 {
   "name": "editor-markdown",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "Editor de Markdown d'escriptori",
+  "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "tail" : "npx @tailwindcss/cli -i ./input.css -o ./output.css --watch"
+    "tail" : "npx @tailwindcss/cli -i ./input.css -o ./output.css --watch",
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "cat.exemple.editor.markdown",
+    "productName": "Editor Markdown",
+    "files": [
+      "**/*",
+      "!node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
+      "!**/.*",
+      "!**/*.map"
+    ],
+    "directories": {
+      "buildResources": "imatges"
+    },
+    "linux": {
+      "target": ["AppImage", "deb"],
+      "category": "Utility",
+      "icon": "imatges/favicon-512x512.png"
+    },
+    "win": {
+      "target": ["nsis"],
+      "icon": "imatges/favicon-256x256.ico"
+    }
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "@tailwindcss/cli": "^4.1.8",
     "tailwindcss": "^4.1.8"
+  },
+  "devDependencies": {
+    "electron": "^30.0.0",
+    "electron-builder": "^24.4.0"
   }
 }
